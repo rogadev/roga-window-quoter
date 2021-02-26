@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Window Pane Quoting Tool</title>
+    <link rel="stylesheet" href="/styles/index.css" />
+    <script src="/scripts/index.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <img src="/images/logo.png" alt="Header logo image" />
+        <ul>
+          <li><a href="#">Home</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section>
+      <div class="bar-container">
+        <div class="button-container">
+          <h3>Upper Level</h3>
+          <button id="uk">Skylight</button>
+          <button id="ul">Large</button>
+          <button id="um">Medium</button>
+          <button id="us">Small</button>
+        </div>
+        <div class="button-container">
+          <h3>Middle Level</h3>
+          <button id="mf">French Pane</button>
+          <button id="ml">Large</button>
+          <button id="mm">Medium</button>
+          <button id="ms">Small</button>
+        </div>
+        <div class="button-container">
+          <h3>Ground Level</h3>
+          <button id="gf">French Pane</button>
+          <button id="gl">Large</button>
+          <button id="gm">Medium</button>
+          <button id="gs">Small</button>
+        </div>
+      </div>
+      <hr />
+    </section>
+
+    <section id="current-entry-section">
+      <h3>Current Entry</h3>
+      <table id="current"></table>
+      <button id="delete-current">Delete</button>
+      <hr />
+    </section>
+
+    <section id="entry-list-section">
+      <h3>Total Collection</h3>
+      <table id="collection"></table>
+      <button id="build-quote">Build Quote</button>
+      <hr />
+    </section>
+
+    <footer>
+      Copyright &copy; 2021 Ryan Paranich<br />All Rights Reserved
+    </footer>
+  </body>
+</html>
