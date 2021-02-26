@@ -1,12 +1,28 @@
-* {
+/* resets on body styles */
+body {
   margin: 0;
 }
 
-h3 {
-  text-align: center;
-  margin-bottom: 4px;
+/* Bar Container
+This container holds our 3 bars of buttons. These bars represent the different levels of
+window pane "complexity", which might effect the price of each pane being considered. */
+.bar-container {
+  background-color: #333;
+  color: white;
+  padding: 20px;
 }
 
+/* H3's
+We're using our h3 tags as the headers for our button bars. These headings display the
+"complexity" level of our window pane prices. */
+h3 {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+/* Button Containers
+Our button containers are what contain our rows of buttons. We want these to flex to support
+responsive design, as this web app will primarily be used on mobile devices in the field. */
 .button-container {
   width: 90%;
   max-width: 400px;
@@ -19,6 +35,10 @@ h3 {
   flex-wrap: nowrap;
 }
 
+/* Buttons in Button Containers
+Any button that is inside a button container represents a window pane selection button. These
+are the buttons used to increase the count of any particular pane. They need to be large enough
+to be easily visible, and preverably color coded (to come later). */
 .button-container button {
   width: 80px;
   height: 50px;
