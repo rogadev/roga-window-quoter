@@ -76,9 +76,7 @@ class LineItem {
  */
 const entrySection = document.getElementById("current-entry-section");
 const collectionSection = document.getElementById("entry-list-section");
-// hide these sections to start.
-toggleDisplay("current-entry-section");
-toggleDisplay("entry-list-section");
+
 // set up delete and counter button 
 document.querySelectorAll("button").forEach(element => {
     if(element.classList.contains("delete")){
@@ -93,7 +91,7 @@ var currentPaneSelected, lastPaneSelected;
 var currentLineItemTable = document.getElementById("current-line-item");
 var quoteTable = document.getElementById("quote-table");
 var quoteLineItems = [];
-
+var currentLineItem = new LineItem();
 
 /**
  * Toggles the display style of a given element between "block" and "none".
@@ -108,21 +106,15 @@ function toggleDisplay(elementId) {
     }
 }
 
-
-
-
-var currentLineItem = new LineItem();
-
 function countPane (element) {
-    console.log(`Button "${element.id}" pressed`);
     currentPaneSelected = element.id;
 
     if (lastPaneSelected == currentPaneSelected) {
         // Selection multiple of current pane. Increase current line item pane count.
         currentLineItem.increasePaneCount();
     } else {
-        // Selecting a nw pane time, so start a new line item.
-        if (currentLineItem.outputString() !== undefined) addLineItemToQuote(currentLineItem.outputString());
+        // Selecting a new pane time, so start a new line item.
+        if (currentLineItem.paneType !== undefined) addLineItemToQuote(currentLineItem.outputString());
         currentLineItem = new LineItem(element.id);
     }
 

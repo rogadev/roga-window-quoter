@@ -46,3 +46,15 @@ to be easily visible, and preverably color coded (to come later). */
   padding-top: 5px;
   padding-bottom: 5px;
 }
+
+/* Navigation Bar
+Our navigation bar here is more of a menu bar. In our quote builder page, we can choose to
+cancel our current quote and go back to home, or finalize the quote and send it. */
+nav {
+  display: flex;
+  justify-content: space-between;
+}
+nav div {
+  padding: 6px 30px;
+  cursor: pointer;
+}
