@@ -1,7 +1,8 @@
-/* resets on body styles */
-body {
-  margin: 0;
-}
+/* 
+quotes.css
+Author: Ryan Paranich
+CSS styling for the new-quote.html page of this web app.
+*/
 
 /* Bar Container
 This container holds our 3 bars of buttons. These bars represent the different levels of

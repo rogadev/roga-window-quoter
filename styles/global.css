@@ -1,0 +1,10 @@
+/* 
+global.css
+Author: Ryan Paranich
+Global CSS styings for the entire app. This stylesheet should supersede all subsequent styling.
+*/
+
+/* resets on body styles */
+body {
+    margin: 0;
+  }
