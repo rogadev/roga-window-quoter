@@ -10,6 +10,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  text-align: center;
 }
 
 header {
@@ -91,6 +92,7 @@ div.btn-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 20px;
 }
 
 div.row {
