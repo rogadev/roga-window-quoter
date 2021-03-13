@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Window Pane Quoting Tool</title>
+    <link rel="stylesheet" href="/styles/main.css" />
+    <script src="/scripts/main.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="brand-title">Quote Tool</div>
+      <nav>
+        <ul>
+          <li>
+            <a href="#">Login</a>
+          </li>
+          <li>
+            <a href="#">Logout</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h1>Edit Pricing</h1>
+
+      <form id="pricing">
+        <h4>Special</h4>
+        <div class="row">
+          <div>
+            <p>Skylight</p>
+            <input id="00" autocomplete="off" />
+          </div>
+          <div>
+            <p>French</p>
+            <input id="01" autocomplete="off" />
+          </div>
+          <div>
+            <p>Setup</p>
+            <input id="02" autocomplete="off" />
+          </div>
+        </div>
+        <h4>High</h4>
+        <div class="row">
+          <div>
+            <p>Small</p>
+            <input id="10" autocomplete="off" />
+          </div>
+          <div>
+            <p>Medium</p>
+            <input id="11" autocomplete="off" />
+          </div>
+          <div>
+            <p>Large</p>
+            <input id="12" autocomplete="off" />
+          </div>
+        </div>
+        <h4>Medium</h4>
+        <div class="row">
+          <div>
+            <p>Small</p>
+            <input id="20" autocomplete="off" />
+          </div>
+          <div>
+            <p>Medium</p>
+            <input id="21" autocomplete="off" />
+          </div>
+          <div>
+            <p>Large</p>
+            <input id="22" autocomplete="off" />
+          </div>
+        </div>
+        <h4>Ground</h4>
+        <div class="row">
+          <div>
+            <p>Small</p>
+            <input id="30" autocomplete="off" />
+          </div>
+          <div>
+            <p>Medium</p>
+            <input id="31" autocomplete="off" />
+          </div>
+          <div>
+            <p>Large</p>
+            <input id="32" autocomplete="off" />
+          </div>
+        </div>
+      </form>
+
+      <div class="btn-container">
+        <button id="save-settings" class="action-button">Save</button>
+        <button id="save-and-build" class="action-button">
+          Save & Build Quote
+        </button>
+      </div>
+    </main>
+    <footer>
+      <hr />
+      Copywrite &copy; 2021 Ryan Paranich
+    </footer>
+  </body>
+</html>
