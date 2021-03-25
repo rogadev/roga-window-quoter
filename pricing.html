@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Window Pane Quoting Tool</title>
     <link rel="stylesheet" href="/styles/main.css" />
+    <script src="/scripts/jquery.js"></script>
     <script src="/scripts/cookies.js" async></script>
+    <script src="/scripts/default_pricing.js" async></script>
     <script src="/scripts/main.js" defer></script>
     <script src="/scripts/pricing.js" defer></script>
   </head>
@@ -31,67 +33,66 @@
         <h4>Special</h4>
         <div class="row">
           <div>
-            <p>Skylight</p>
-            <input id="00" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="00" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>French</p>
-            <input id="01" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="01" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>Setup</p>
-            <input id="02" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="02" autocomplete="off" class="price" />
           </div>
         </div>
         <h4>High</h4>
         <div class="row">
           <div>
-            <p>Small</p>
-            <input id="10" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="10" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>Medium</p>
-            <input id="11" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="11" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>Large</p>
-            <input id="12" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="12" autocomplete="off" class="price" />
           </div>
         </div>
         <h4>Medium</h4>
         <div class="row">
           <div>
-            <p>Small</p>
-            <input id="20" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="20" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>Medium</p>
-            <input id="21" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="21" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>Large</p>
-            <input id="22" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="22" autocomplete="off" class="price" />
           </div>
         </div>
         <h4>Ground</h4>
         <div class="row">
           <div>
-            <p>Small</p>
-            <input id="30" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="30" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>Medium</p>
-            <input id="31" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="31" autocomplete="off" class="price" />
           </div>
           <div>
-            <p>Large</p>
-            <input id="32" autocomplete="off" />
+            <div class="tooltip"></div>
+            <input id="32" autocomplete="off" class="price" />
           </div>
         </div>
       </form>
 
       <div class="btn-container">
-        <button id="save-settings" class="action-button">Save</button>
         <button id="save-and-build" class="action-button">
           Save & Build Quote
         </button>

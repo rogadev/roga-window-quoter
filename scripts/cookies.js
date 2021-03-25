@@ -48,7 +48,7 @@ function setCookie(cookieName, cookieValue, existenceDuration, secure) {
  * @returns Unescaped string value of the name/value pair found. If no cookie is found matching the parameter,
  * returns null.
  */
-function getCookieValue(cookieName) {
+function getCookie(cookieName) {
   let namePlusEqualSign = `${cookieName}=`;
   let allCookies = document.cookie.split(";");
   for (let cookie of allCookies) {
@@ -76,7 +76,7 @@ function deleteCookie(cookieName) {
   cookieName = cookieName.trim();
   if (doesCookieExist) {
     document.cookie = `${escape(cookieName)}=x;max-age=0`;
-    if (getCookieValue(cookieName) === null) {
+    if (getCookie(cookieName) === null) {
       console.info(`The cookie "${cookieName}" was successfully deleted.`);
       return true;
     } else {
@@ -100,6 +100,6 @@ function deleteCookie(cookieName) {
  */
 function doesCookieExist(cookieName) {
   cookieName = cookieName.trim();
-  if (getCookieValue(escape(cookieName)) !== null) return true;
+  if (getCookie(escape(cookieName)) !== null) return true;
   else return false;
 }
