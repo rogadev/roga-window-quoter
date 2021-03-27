@@ -52,6 +52,6 @@ function constructPricing() {
       prices[i].value = inputPrices[i].value;
       setCookie(`paneType${i}`, inputPrices[i].value, 1);
     }
-    window.location.href = "new-quote.html";
+    window.location.href = "count.html";
   });
 }
