@@ -8,6 +8,7 @@ var lastClickedBtn;
 var currentLineItem;
 var lineItemList = [];
 var $list = $("table.list");
+var trashIcon = '<i class="far fa-trash"></i>';
 
 /**
  * This represents one line item on the quote's page. We're counting up our panes and we're making a line
@@ -15,16 +16,18 @@ var $list = $("table.list");
  * of line items and displayed on screen. It can be deleted and re-counted, if needed.
  */
 class LineItem {
-  constructor(code, name, price, screens) {
+  constructor(code, name, each, screens) {
     this.code = code;
     this.name = name;
-    this.price = price;
+    this.each = each;
     this.screens = screens;
     this.count = 1; // at creation, we've "counted" our first pane for this line item.
+    this.price = this.count * this.each;
   }
   // Each button press of any given pane type increases the count by 1.
   increaseCount = function () {
     this.count++;
+    this.price = this.count * this.each;
   };
 }
 
@@ -75,7 +78,7 @@ function buttonClicked(e) {
     currentLineItem = new LineItem(
       e.target.dataset.code,
       e.target.dataset.name,
-      e.target.dataset.price,
+      e.target.dataset.each,
       e.target.dataset.screens
     );
     lineItemList.push(currentLineItem);
@@ -88,8 +91,24 @@ function buttonClicked(e) {
  * Update & render current line items.
  */
 function updateLineItems() {
-  if (lineItemList.length === 0) return;
+  /* If we delete all of our line items, we can end up with a list length of 0. If that happens
+    we want to make sure we don't create a table/list full of null or undefined values. */
+  if (lineItemList.length === 0) {
+    $list.html("");
+    return;
+  }
 
-  for (let i = 0; i < lineItemList.length; i++) {}
-  console.log(lineItemList);
+  let runningPaneCount = 0;
+  let runningPriceTotal = 0;
+
+  let $paneCount = $("#paneCount");
+  let $priceTotal = $("#paneCount");
+
+  for (let i = 0; i < lineItemList.length; i++) {
+    $paneCount += lineItemList[i].count;
+    $priceTotal += "";
+  }
+
+  $paneCount.text(runningPaneCount);
+  $priceTotal.text(runningPriceTotal);
 }
