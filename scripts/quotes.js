@@ -7,7 +7,7 @@
 var lastClickedBtn;
 var currentLineItem;
 var lineItemList = [];
-var $list = $("table.list");
+var $list = $("tbody.list");
 var trashIcon = '<i class="far fa-trash"></i>';
 
 /**
@@ -78,7 +78,7 @@ function buttonClicked(e) {
     currentLineItem = new LineItem(
       e.target.dataset.code,
       e.target.dataset.name,
-      e.target.dataset.each,
+      e.target.dataset.price,
       e.target.dataset.screens
     );
     lineItemList.push(currentLineItem);
@@ -98,17 +98,29 @@ function updateLineItems() {
     return;
   }
 
-  let runningPaneCount = 0;
-  let runningPriceTotal = 0;
+  let paneCount = document.getElementById("totalCount");
+  let priceTotal = document.getElementById("totalPrice");
 
-  let $paneCount = $("#paneCount");
-  let $priceTotal = $("#paneCount");
-
+  var runningPaneCount = 0;
+  var runningPriceTotal = 0;
+  let content = "";
   for (let i = 0; i < lineItemList.length; i++) {
-    $paneCount += lineItemList[i].count;
-    $priceTotal += "";
+    content += "<tr>";
+    runningPaneCount += Number.parseInt(lineItemList[i].count);
+    runningPriceTotal += Number.parseFloat(lineItemList[i].price);
+    content += `<td> ${lineItemList[i].code} </td>`;
+    content += `<td> ${lineItemList[i].name} </td>`;
+    content += `<td> ${lineItemList[i].each} </td>`;
+    content += `<td> ${lineItemList[i].count} </td>`;
+    content += `<td> ${Number.parseFloat(lineItemList[i].price).toFixed(
+      2
+    )} </td>`;
+    content += "<td class='trash'>" + trashIcon + "</td";
+    content += "</tr>";
   }
 
-  $paneCount.text(runningPaneCount);
-  $priceTotal.text(runningPriceTotal);
+  $list.html(content);
+
+  paneCount.innerHTML = runningPaneCount;
+  priceTotal.innerHTML = Number.parseFloat(runningPriceTotal).toFixed(2);
 }
