@@ -48,15 +48,17 @@ function setupPaneButtons() {
 
   // Sets up the data attributes for each pane button. This is used later in our click event.
   $paneButtons.each(function (i) {
-    let name = prices[i].name;
+    let name = defaultPrices[i].name;
     $(this).text(name).attr("data-name", name);
     // Did we receive cookies from the browser? We should, but if not, use default price values.
     let cookiesExists = doesCookieExist(`paneType${i}`);
-    let price = cookiesExists ? getCookie(`paneType${i}`) : prices[i].price;
+    let price = cookiesExists
+      ? getCookie(`paneType${i}`)
+      : defaultPrices[i].price;
     $(this)
       .attr("data-price", price)
-      .attr("data-code", prices[i].code)
-      .attr("data-screens", prices[i].screens);
+      .attr("data-code", defaultPrices[i].code)
+      .attr("data-screens", defaultPrices[i].screens);
   });
 }
 
