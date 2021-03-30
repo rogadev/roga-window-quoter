@@ -1,0 +1,7 @@
+form.card-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  padding: 0 25px;
+  margin: 0 auto;
+}
