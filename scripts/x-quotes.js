@@ -14,20 +14,25 @@ var trashIcon = '<i class="far fa-trash" onClick="deleteRow"></i>';
  * This represents one line item on the quote's page. We're counting up our panes and we're making a line
  * item that represents the data that we're collecting about this job. A line item is added to an array
  * of line items and displayed on screen. It can be deleted and re-counted, if needed.
+ * @constructor
+ *    @param  {String}  code      The unique 2 char code associated to this pane type.
+ *    @param  {String}  size      The size of pane being counted.
+ *    @param  {String}  pricePer  The price associated with 1 pane of this type.
+ *    @param  {String}  screens   (future feature) Later we'll take into account how many screens need cleaning.
  */
 class LineItem {
-  constructor(code, name, each, screens) {
+  constructor(code, size, pricePer, screens) {
     this.code = code;
-    this.name = name;
-    this.each = each;
+    this.size = size;
+    this.pricePer = pricePer;
     this.screens = screens;
     this.count = 1; // at creation, we've "counted" our first pane for this line item.
-    this.price = this.count * this.each;
+    this.price = this.count * this.pricePer;
   }
   // Each button press of any given pane type increases the count by 1.
   increaseCount = function () {
     this.count++;
-    this.price = this.count * this.each;
+    this.price = this.count * this.pricePer;
   };
 }
 
@@ -48,6 +53,7 @@ function setupPaneButtons() {
 
   // Sets up the name & data attributes for each pane button. Dataset is used later in our click event.
   $paneButtons.each(function (i) {
+    // Handled later if no cookie exists.
     let thisCookie = getCookie(`paneType${i}`);
     let name = defaultPrices[i].name;
 
@@ -103,41 +109,3 @@ function createNewLineItem(lineItemData) {
 function deleteRow() {
   console.log("Soon this will delete this row.", $(this));
 }
-
-/**
- * Update & render current line items.
- */
-// function updateLineItems() {
-//   /* If we delete all of our line items, we can end up with a list length of 0. If that happens
-//     we want to make sure we don't create a table/list full of null or undefined values. */
-//   if (lineItemList.length === 0) {
-//     $list.html("");
-//     return;
-//   }
-
-//   let paneCount = document.getElementById("totalCount");
-//   let priceTotal = document.getElementById("totalPrice");
-
-//   var runningPaneCount = 0;
-//   var runningPriceTotal = 0;
-//   let content = "";
-//   for (let i = 0; i < lineItemList.length; i++) {
-//     content += "<tr>";
-//     runningPaneCount += Number.parseInt(lineItemList[i].count);
-//     runningPriceTotal += Number.parseFloat(lineItemList[i].price);
-//     content += `<> ${lineItemList[i].code} </>`;
-//     content += `<td> ${lineItemList[i].name} </td>`;
-//     content += `<td> ${lineItemList[i].each} </td>`;
-//     content += `<td> ${lineItemList[i].count} </td>`;
-//     content += `<td> ${Number.parseFloat(lineItemList[i].price).toFixed(
-//       2
-//     )} </td>`;
-//     content += "<td class='trash'>" + trashIcon + "</td";
-//     content += "</tr>";
-//   }
-
-//   $list.html(content);
-
-//   paneCount.innerHTML = runningPaneCount;
-//   priceTotal.innerHTML = Number.parseFloat(runningPriceTotal).toFixed(2);
-// }

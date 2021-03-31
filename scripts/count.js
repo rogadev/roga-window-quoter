@@ -4,7 +4,7 @@
  *
  */
 
-const $app = $("div#app");
+const $btnBoard = $("div#buttonBoard");
 const $lineItems = $("tbody");
 const $tableFoot = $("tfoot");
 
@@ -118,24 +118,36 @@ class LineItem {
  * We need to ensure the page has loaded to run the following...
  */
 window.addEventListener("load", () => {
-  let board = new Board();
-  $app.append(board.render());
-  $("thead").append(`
-    <tr>
-        <th>Height</th>
-        <th>Size</th>
-        <th>Each</th>
-        <th># of</th>
-        <th>Price</th>
-        <th>Del</th>
-    </tr>`);
-  let $buttons = $("button.pane");
-  $buttons.on("click", squareClick);
+  // Create & render button board.
+  const BUTTON_BOARD = new Board();
+  $btnBoard.append(BUTTON_BOARD.render());
+  // Create and render table Head
+  createTableHead($("thead"));
+  // Set up click event listeners for button board buttons.
+  $("button.pane").on("click", squareClick);
+  // Set up click even listener for cancel & continue buttons (navigation).
   $("#menu-cancel").on("click", function () {
     window.location.href = "index.html";
   });
+  // Update (or, more accurately, create) the table footer.
   updateTableFoot();
 });
+
+/**
+ * Creates the table head row using a template. Broken out into a function for code readability.
+ * @param {Element} ele The jQuery element where to append the template.
+ */
+function createTableHead(ele) {
+  $(ele).append(`
+  <tr>
+      <th>Height</th>
+      <th>Size</th>
+      <th>Each</th>
+      <th># of</th>
+      <th>Price</th>
+      <th>Del</th>
+  </tr>`);
+}
 
 /**
  * A "square" refers to one of our buttons that corresponds to counting one of that particular type of
@@ -156,7 +168,9 @@ function squareClick(e) {
     $lineItems.prepend(currentLineItem.render());
     lastButtonClicked = e.target;
   }
+  // Set up delete icon click even listener.
   $("td.delete:eq(0)").on("click", (e) => deleteRow(e));
+  // Update table footer with our new totals.
   updateTableFoot();
 }
 
@@ -175,7 +189,7 @@ function updateTableFoot() {
     count += Number.parseInt(item.dataset.count);
     totalPrice += Number.parseFloat(item.dataset.price);
   }
-  /* Table footer template */
+  /* Apply data to our table footer template */
   $tableFoot.html(`
   <tr>
     <td></td>
@@ -197,7 +211,6 @@ function deleteRow(e) {
   we simply reset the last button clicked and current line item. */
   currentLineItem = "";
   lastButtonClicked = "";
-
   /* Play a fade effect on the current line item, then remove it from the list. Update totals.*/
   $(e.currentTarget)
     .parent()
