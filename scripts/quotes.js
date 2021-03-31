@@ -8,7 +8,7 @@ var lastClickedBtn;
 var currentLineItem;
 var lineItemList = [];
 var $list = $("tbody.list");
-var trashIcon = '<i class="far fa-trash"></i>';
+var trashIcon = '<i class="far fa-trash" onClick="deleteRow"></i>';
 
 /**
  * This represents one line item on the quote's page. We're counting up our panes and we're making a line
@@ -98,6 +98,10 @@ function createNewLineItem(lineItemData) {
                  <td>${trashIcon}</td></tr>`;
 
   $list.prepend(content);
+}
+
+function deleteRow() {
+  console.log("Soon this will delete this row.", $(this));
 }
 
 /**
