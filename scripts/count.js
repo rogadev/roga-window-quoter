@@ -1,7 +1,16 @@
 "use strict";
 
 /**
+ * @file  count.js
+ * @author  Ryan Paranich <rparanich@northislandcollege.ca>
  *
+ * NIC DGL113 W21
+ *
+ * This file build the general structure and functionality into our "build quote" or "count" page. This
+ * page is responsible for allowing the user to use their preset default or custom price list to count
+ * up panes of various height and size. It creates a live list for the user to view as they count panes
+ * and size up the job. The user can also delete line items from the count if they've made a mistake or
+ * wish to change the type of pane counted.
  */
 
 const $btnBoard = $("div#buttonBoard");
