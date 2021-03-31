@@ -7,6 +7,9 @@
  * pricing, while using a default price list as a base line.
  */
 
+/**
+ * Making sure we have fully loaded the page before constructing our pricing table.
+ */
 window.addEventListener("load", () => {
   constructPricing();
 });
@@ -17,23 +20,17 @@ window.addEventListener("load", () => {
  * each input box.
  */
 function constructPricing() {
-  var namePlates = document.querySelectorAll("div.tooltip");
-  var inputPrices = document.querySelectorAll("input.price");
+  var inputPrices = $("input.price");
   var startQuote = document.getElementById("save-and-build");
 
-  for (let i = 0; i < namePlates.length; i++) {
-    // adds the name
-    namePlates[i].innerHTML = prices[i].name;
-    // adds the tooltip text
-    let toolTipText = document.createElement("span");
-    toolTipText.className = "tooltiptext";
-    let toolTipTextNode = document.createTextNode(prices[i].description);
-    toolTipText.appendChild(toolTipTextNode);
-    namePlates[i].appendChild(toolTipText);
-  }
+  populateTooltips();
 
+  /* Fill in values into the input boxes. If we have cookie values saved, use those. Else, use default values. */
   for (let i = 0; i < inputPrices.length; i++) {
-    inputPrices[i].value = prices[i].value.toFixed(2);
+    inputPrices[i].value = doesCookieExist(`paneType${i}`)
+      ? getCookie(`paneType${i}`)
+      : defaultPrices[i].value.toFixed(2);
+
     inputPrices[i].addEventListener("blur", () => {
       inputPrices[i].value = Number.parseFloat(inputPrices[i].value).toFixed(2);
     });
@@ -49,9 +46,26 @@ function constructPricing() {
 
   startQuote.addEventListener("click", () => {
     for (let i = 0; i < inputPrices.length; i++) {
-      prices[i].value = inputPrices[i].value;
       setCookie(`paneType${i}`, inputPrices[i].value, 1);
     }
     window.location.href = "count.html";
   });
+}
+
+/**
+ * Loops through our array of name plates (the text centered above each price input box) and attach the
+ * respective tooltip to be displayed upon hovering over a name plate. Tap instead of hover, on mobile.
+ */
+function populateTooltips() {
+  var namePlates = $("div.tooltip");
+  for (let i = 0; i < namePlates.length; i++) {
+    // adds the name
+    namePlates[i].innerHTML = defaultPrices[i].name;
+    // adds the tooltip text
+    let toolTipText = document.createElement("span");
+    toolTipText.className = "tooltiptext";
+    let toolTipTextNode = document.createTextNode(defaultPrices[i].description);
+    toolTipText.appendChild(toolTipTextNode);
+    namePlates[i].appendChild(toolTipText);
+  }
 }

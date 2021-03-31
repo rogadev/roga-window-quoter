@@ -46,19 +46,17 @@ function setupPaneButtons() {
   // adds event listener to all .pane buttons.
   let $paneButtons = $(".pane").on("click", buttonClicked);
 
-  // Sets up the data attributes for each pane button. This is used later in our click event.
+  // Sets up the name & data attributes for each pane button. Dataset is used later in our click event.
   $paneButtons.each(function (i) {
+    let thisCookie = getCookie(`paneType${i}`);
     let name = defaultPrices[i].name;
-    $(this).text(name).attr("data-name", name);
-    // Did we receive cookies from the browser? We should, but if not, use default price values.
-    let cookiesExists = doesCookieExist(`paneType${i}`);
-    let price = cookiesExists
-      ? getCookie(`paneType${i}`)
-      : defaultPrices[i].price;
+
     $(this)
-      .attr("data-price", price)
+      .attr("data-price", thisCookie ? thisCookie : defaultPrices[i].price)
       .attr("data-code", defaultPrices[i].code)
-      .attr("data-screens", defaultPrices[i].screens);
+      .attr("data-screens", defaultPrices[i].screens)
+      .text(name)
+      .attr("data-name", name);
   });
 }
 
@@ -73,7 +71,7 @@ function buttonClicked(e) {
   // If the last button we clicked is the same as this click, we want to keep increasing the count for that line item.
   if (lastClickedBtn === e.target.dataset.code) {
     currentLineItem.increaseCount();
-    updateLineItems();
+    updateCurrentLineItem(currentLineItem.price);
   }
   // If it's a new button we've clicked on, we want to start a new line item for this pane type.
   else {
@@ -84,45 +82,58 @@ function buttonClicked(e) {
       e.target.dataset.screens
     );
     lineItemList.push(currentLineItem);
-    updateLineItems();
+    createNewLineItem(currentLineItem);
     lastClickedBtn = e.target.dataset.code;
   }
+}
+
+function updateCurrentLineItem(newPrice) {}
+
+function createNewLineItem(lineItemData) {
+  let content = `<tr><td>${lineItemData.code}</td>
+                 <td>${lineItemData.name}</td>
+                 <td>${lineItemData.each}</td>
+                 <td>${lineItemData.count}</td>
+                 <td>${lineItemData.price}</td>
+                 <td>${trashIcon}</td></tr>`;
+
+  $list.prepend(content);
 }
 
 /**
  * Update & render current line items.
  */
-function updateLineItems() {
-  /* If we delete all of our line items, we can end up with a list length of 0. If that happens
-    we want to make sure we don't create a table/list full of null or undefined values. */
-  if (lineItemList.length === 0) {
-    $list.html("");
-    return;
-  }
+// function updateLineItems() {
+//   /* If we delete all of our line items, we can end up with a list length of 0. If that happens
+//     we want to make sure we don't create a table/list full of null or undefined values. */
+//   if (lineItemList.length === 0) {
+//     $list.html("");
+//     return;
+//   }
 
-  let paneCount = document.getElementById("totalCount");
-  let priceTotal = document.getElementById("totalPrice");
+//   let paneCount = document.getElementById("totalCount");
+//   let priceTotal = document.getElementById("totalPrice");
 
-  var runningPaneCount = 0;
-  var runningPriceTotal = 0;
-  let content = "";
-  for (let i = 0; i < lineItemList.length; i++) {
-    content += "<tr>";
-    runningPaneCount += Number.parseInt(lineItemList[i].count);
-    runningPriceTotal += Number.parseFloat(lineItemList[i].price);
-    content += `<td> ${lineItemList[i].code} </td>`;
-    content += `<td> ${lineItemList[i].name} </td>`;
-    content += `<td> ${lineItemList[i].each} </td>`;
-    content += `<td> ${lineItemList[i].count} </td>`;
-    content += `<td> ${Number.parseFloat(lineItemList[i].price).toFixed(
-      2
-    )} </td>`;
-    content += "<td class='trash'>" + trashIcon + "</td";
-    content += "</tr>";
-  }
+//   var runningPaneCount = 0;
+//   var runningPriceTotal = 0;
+//   let content = "";
+//   for (let i = 0; i < lineItemList.length; i++) {
+//     content += "<tr>";
+//     runningPaneCount += Number.parseInt(lineItemList[i].count);
+//     runningPriceTotal += Number.parseFloat(lineItemList[i].price);
+//     content += `<> ${lineItemList[i].code} </>`;
+//     content += `<td> ${lineItemList[i].name} </td>`;
+//     content += `<td> ${lineItemList[i].each} </td>`;
+//     content += `<td> ${lineItemList[i].count} </td>`;
+//     content += `<td> ${Number.parseFloat(lineItemList[i].price).toFixed(
+//       2
+//     )} </td>`;
+//     content += "<td class='trash'>" + trashIcon + "</td";
+//     content += "</tr>";
+//   }
 
-  $list.html(content);
+//   $list.html(content);
 
-  paneCount.innerHTML = runningPaneCount;
-  priceTotal.innerHTML = Number.parseFloat(runningPriceTotal).toFixed(2);
-}
+//   paneCount.innerHTML = runningPaneCount;
+//   priceTotal.innerHTML = Number.parseFloat(runningPriceTotal).toFixed(2);
+// }
