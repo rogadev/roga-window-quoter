@@ -126,10 +126,13 @@ window.addEventListener("load", () => {
         <th>Each</th>
         <th># of</th>
         <th>Price</th>
-        <th></th>
+        <th>Del</th>
     </tr>`);
   let $buttons = $("button.pane");
   $buttons.on("click", squareClick);
+  $("#menu-cancel").on("click", function () {
+    window.location.href = "index.html";
+  });
 });
 
 function squareClick(e) {
@@ -142,9 +145,9 @@ function squareClick(e) {
   } else {
     currentLineItem = new LineItem(e.target.dataset.i);
     $lineItems.prepend(currentLineItem.render());
-    $("td.delete:eq(0)").on("click", (e) => deleteRow(e));
     lastButtonClicked = e.target;
   }
+  $("td.delete:eq(0)").on("click", (e) => deleteRow(e));
   updateTableFoot();
 }
 
@@ -160,16 +163,17 @@ function updateTableFoot() {
 
   $tableFoot.html(`
   <tr>
-    <td class="emptyCell"></td>
-    <td class="emptyCell"></td>
-    <td class="emptyCell"></td>
+    <td></td>
+    <td></td>
+    <td></td>
     <td>${count}</td>
     <td>$${totalPrice.toFixed(2)}</td>
-    <td class="emptyCell"></td>
+    <td></td>
   </tr>`);
 }
 
 function deleteRow(e) {
+  console.log(e.currentTarget.parentElement);
   $(e.currentTarget)
     .parent()
     .hide(800, () => {
