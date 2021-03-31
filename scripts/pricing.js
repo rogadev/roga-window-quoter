@@ -3,8 +3,14 @@
 /**
  * pricing.js
  * @author  Ryan Paranich   <rparanich@northislandcollege.ca>
- * Handles the pricing page features and functions. Using session storage to store adjusted
- * pricing, while using a default price list as a base line.
+ * Last edit: March 31, 2021
+ *
+ * NIC DGL113 W21
+ *
+ * Handles the pricing page features and functions. Using cookie storage to store adjusted
+ * pricing, while using @see default_pricing.js as a default price list. Also handles all
+ * button click events on this page for saving price sheet, or starting a quote using this
+ * price sheet.
  */
 
 /**
@@ -22,33 +28,43 @@ window.addEventListener("load", () => {
 function constructPricing() {
   var inputPrices = $("input.price");
   var startQuote = document.getElementById("save-and-build");
+  var savePricing = document.getElementById("save-and-return");
 
+  /* "Tooltips" are helpful descriptions shown when tapping (mobile) or hovering over (desktop) a given nameplate */
   populateTooltips();
 
   /* Fill in values into the input boxes. If we have cookie values saved, use those. Else, use default values. */
   for (let i = 0; i < inputPrices.length; i++) {
+    /* Looks for cookies. If we have cookies, use these values. Otherwise, use default values. */
     inputPrices[i].value = doesCookieExist(`paneType${i}`)
       ? getCookie(`paneType${i}`)
       : defaultPrices[i].value.toFixed(2);
-
+    /* "Blur" refers to when you focus and then move away from an item. Commit changes on blur. */
     inputPrices[i].addEventListener("blur", () => {
       inputPrices[i].value = Number.parseFloat(inputPrices[i].value).toFixed(2);
     });
+    /* Hitting the "return" key will trigger this event listener and blur selected field, committing changes. */
     inputPrices[i].addEventListener("keyup", (e) => {
       if (e.keyCode === 13) {
         e.target.blur();
-        inputPrices[i].value = Number.parseFloat(inputPrices[i].value).toFixed(
-          2
-        );
       }
     });
   }
 
+  /* Event listener to use this price list to start a new quote. */
   startQuote.addEventListener("click", () => {
     for (let i = 0; i < inputPrices.length; i++) {
       setCookie(`paneType${i}`, inputPrices[i].value, 1);
     }
     window.location.href = "count.html";
+  });
+
+  /* Event listener to save this price list to cookies and return home. */
+  savePricing.addEventListener("click", () => {
+    for (let i = 0; i < inputPrices.length; i++) {
+      setCookie(`paneType${i}`, inputPrices[i].value, 1);
+    }
+    window.location.href = "index.html";
   });
 }
 
