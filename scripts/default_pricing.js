@@ -29,7 +29,7 @@ class Price {
   }
 }
 
-const defaultPrices = [
+const defaultValues = [
   // Special Level
   new Price("sk", "Special", "Skylight", "Glass pane skylight cleaning.", 18.0),
   new Price("sf", "Special", "French", "Cleaning of french panes.", 1.0),

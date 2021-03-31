@@ -38,7 +38,7 @@ function constructPricing() {
     /* Looks for cookies. If we have cookies, use these values. Otherwise, use default values. */
     inputPrices[i].value = doesCookieExist(`paneType${i}`)
       ? getCookie(`paneType${i}`)
-      : defaultPrices[i].value.toFixed(2);
+      : defaultValues[i].value.toFixed(2);
     /* "Blur" refers to when you focus and then move away from an item. Commit changes on blur. */
     inputPrices[i].addEventListener("blur", () => {
       inputPrices[i].value = Number.parseFloat(inputPrices[i].value).toFixed(2);
@@ -76,11 +76,11 @@ function populateTooltips() {
   var namePlates = $("div.tooltip");
   for (let i = 0; i < namePlates.length; i++) {
     // adds the name
-    namePlates[i].innerHTML = defaultPrices[i].name;
+    namePlates[i].innerHTML = defaultValues[i].size;
     // adds the tooltip text
     let toolTipText = document.createElement("span");
     toolTipText.className = "tooltiptext";
-    let toolTipTextNode = document.createTextNode(defaultPrices[i].description);
+    let toolTipTextNode = document.createTextNode(defaultValues[i].description);
     toolTipText.appendChild(toolTipTextNode);
     namePlates[i].appendChild(toolTipText);
   }
