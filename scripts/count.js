@@ -21,12 +21,30 @@ const deleteIcon = "<i class='far fa-trash'</i>";
 var lastButtonClicked;
 var currentLineItem;
 
+/**
+ * @class Board
+ * This class represents the button board for our pane counting. It structures the
+ * board to follow a set convention and adds data attributes as required for the
+ * program to function as intended.
+ */
 class Board {
+  /**
+   * Render this individual square. A "square" is the button that represents a
+   * specific pane type.
+   * @param {Number} i  Unique square identifier.
+   * @see   Square      Class used to define a square.
+   * @returns           Set HTML string for injection into the page.
+   */
   renderSquare = function (i) {
     let square = new Square(i);
     return square.render();
   };
 
+  /**
+   * Renders the full layout of the button board, including each individual
+   * "square", or button representing a specific pane type.
+   * @returns Set HTML string for injection into the page.
+   */
   render = function () {
     let content = "";
     content += `<div class="btn-board">
@@ -60,6 +78,14 @@ class Board {
   };
 }
 
+/**
+ * @class Square
+ * @constructor
+ *    @param  {Number}  i Unique identifier or iteration.
+ * A "square" is a button that represents a specific pane type in our array of
+ * buttons within our button board. This class defines how these squares work
+ * and what content is stored within them.
+ */
 class Square {
   constructor(i) {
     this.i = i;
