@@ -15,7 +15,9 @@
 
 const $btnBoard = $("div#buttonBoard");
 const $lineItems = $("tbody");
-const $tableFoot = $("tfoot");
+const $tableFoot = $("tfoot"); //todo: remove and replace
+
+const $ctrlBoard = $("div#controlBoard");
 
 const deleteIcon = "<i class='far fa-trash'</i>";
 var lastButtonClicked;
@@ -98,6 +100,10 @@ class Square {
       : Number.parseFloat(defaultValues[i].value).toFixed(2);
   }
 
+  /**
+   * Generates the HTML string to render this square in the dom.
+   * @returns {String}  HTML string representing this square.
+   */
   render = function () {
     let content = "";
 
@@ -111,6 +117,10 @@ class Square {
   };
 }
 
+/**
+ * @constructor Takes the parameter i, representing the pane type. These types
+ * are stored in the defaultValues array. @see default_pricing.js
+ */
 class LineItem {
   constructor(i) {
     let ea = doesCookieExist(`paneType${i}`)
@@ -122,12 +132,21 @@ class LineItem {
     this.count = 1;
   }
 
+  /**
+   * Get and return the current price of this line item.
+   * @returns {Number} Returns the 0.00 fixed float representing the price of
+   * this line item. Price is the price-per-item (each) times number of items (count).
+   */
   getPrice = function () {
     let each = Number.parseFloat(this.each);
     let count = Number.parseFloat(this.count);
     return Number.parseFloat(each * count).toFixed(2);
   };
 
+  /**
+   * Generates the HTML string needed to render this line item.
+   * @returns {String} HTML string required to represent this line item in the DOM.
+   */
   render = function () {
     let content = "";
     content += `
@@ -160,10 +179,7 @@ window.addEventListener("load", () => {
   createTableHead($("thead"));
   // Set up click event listeners for button board buttons.
   $("button.pane").on("click", squareClick);
-  // Set up click even listener for cancel & continue buttons (navigation).
-  $("#menu-cancel").on("click", function () {
-    window.location.href = "index.html";
-  });
+
   // Update (or, more accurately, create) the table footer.
   updateTableFoot();
 });

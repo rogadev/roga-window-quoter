@@ -56,7 +56,7 @@ function constructPricing() {
     for (let i = 0; i < inputPrices.length; i++) {
       setCookie(`paneType${i}`, inputPrices[i].value, 1);
     }
-    window.location.href = "count.html";
+    window.location.href = "new-quote.html";
   });
 
   /* Event listener to save this price list to cookies and return home. */
