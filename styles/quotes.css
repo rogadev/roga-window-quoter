@@ -62,11 +62,12 @@ nav div {
 
 #summaryBoard {
   display: flex;
-  width: 90%;
+  width: 350px;
   height: 50px;
   margin: 40px auto;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
+  width: 350px;
 }
 
 .paneCount,
@@ -75,16 +76,22 @@ nav div {
   font-weight: 600;
 }
 
-.paneCount {
-  font-weight: 800;
-}
-
+.paneCount,
 .grandTotal {
+  font-size: 1.5rem;
   font-weight: 800;
 }
 
 .reviewAndSendButton {
-  height: 100%;
-  padding-left: 20px;
-  padding-right: 20px;
+  height: 60px;
+  width: 125px;
+  margin-left: 20px;
+}
+
+table {
+  margin-bottom: 50px;
+}
+
+.summaryContainer {
+  padding: 10px;
 }

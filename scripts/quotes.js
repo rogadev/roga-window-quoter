@@ -41,15 +41,13 @@ class Board {
     let square = new Square(i);
     return square.render();
   };
-
   /**
    * Renders the full layout of the button board, including each individual
    * "square", or button representing a specific pane type.
    * @returns Set HTML string for injection into the page.
    */
   render = function () {
-    let content = "";
-    content += `<div class="btn-board">
+    return `<div class="btn-board">
             <h2>Special</h2>
             <div class="button-container">
                 ${this.renderSquare(0)}
@@ -76,7 +74,6 @@ class Board {
             </div>
         </div>
         `;
-    return content;
   };
 }
 
@@ -92,28 +89,18 @@ class Square {
   constructor(i) {
     this.i = i;
     this.cookieExists = doesCookieExist(`paneType${i}`);
-    this.code = defaultValues[i].code;
     this.size = defaultValues[i].size;
-    this.height = defaultValues[i].height;
-    this.price = this.cookieExists
-      ? getCookie(`paneType${i}`)
-      : Number.parseFloat(defaultValues[i].value).toFixed(2);
   }
-
   /**
    * Generates the HTML string to render this square in the dom.
    * @returns {String}  HTML string representing this square.
    */
   render = function () {
-    let content = "";
-
-    content += `
+    return `
         <button class="pane" data-i="${this.i}">
             ${this.size}
         </button>
         `;
-
-    return content;
   };
 }
 
@@ -180,7 +167,7 @@ window.addEventListener("load", () => {
   // Set up click event listeners for button board buttons.
   $("button.pane").on("click", squareClick);
 
-  createCtrlBoard();
+  createSummaryBoard();
 
   // Update (or, more accurately, create) the table footer.
   // updateTableFoot();
@@ -211,12 +198,7 @@ function createTableHead(ele) {
  * @param {Event} e Our click event.
  */
 function squareClick(e) {
-  if (clickSound.currenTime !== 0) {
-    clickSound.pause();
-    clickSound.currentTime = 0;
-    console.log(clickSound.currentTime);
-  }
-  clickSound.play();
+  playClickSound();
 
   if (e.target === lastButtonClicked) {
     $("tr:eq(1)").remove();
@@ -230,8 +212,17 @@ function squareClick(e) {
   }
   // Set up delete icon click even listener.
   $("td.delete:eq(0)").on("click", (e) => deleteRow(e));
-  // Update table footer with our new totals.
-  updateCtrlBoard();
+  // Update our totals on our summary board.
+  updateSummaryBoard();
+}
+
+function playClickSound() {
+  if (clickSound.currenTime !== 0) {
+    clickSound.pause();
+    clickSound.currentTime = 0;
+    console.log(clickSound.currentTime);
+  }
+  clickSound.play();
 }
 
 function getPaneCount() {
@@ -285,11 +276,11 @@ function deleteRow(e) {
     .parent()
     .hide(600, () => {
       $(e.currentTarget).parent().remove();
-      updateCtrlBoard();
+      updateSummaryBoard();
     });
 }
 
-function createCtrlBoard() {
+function createSummaryBoard() {
   $paneCount = $("<div></div>").addClass("paneCount").append(getPaneCount());
   $grandTotal = $("<div></div>")
     .addClass("grandTotal")
@@ -297,17 +288,30 @@ function createCtrlBoard() {
   $reviewAndSendBtn = $("<button></button>")
     .addClass("reviewAndSendButton")
     .append("Review & Send")
-    .attr("data-count", "0")
-    .attr("data-total", "0");
+    .on("click", sendQuoteToReview);
 
-  $ctrlBoard.append($paneCount, $grandTotal, $reviewAndSendBtn);
+  let $pcHeader = $("<h3></h3>").text("Pane Count:");
+  let $gtHeader = $("<h3></h3>").text("Grand Total:");
+
+  let $pcContainer = $("<div></div>")
+    .addClass("summaryContainer")
+    .append($pcHeader, $paneCount);
+  let $gtContainer = $("<div></div>")
+    .addClass("summaryContainer")
+    .append($gtHeader, $grandTotal);
+
+  $ctrlBoard.append($pcContainer, $gtContainer, $reviewAndSendBtn);
 }
 
-function updateCtrlBoard() {
+function updateSummaryBoard() {
   $paneCount.text(getPaneCount());
   $grandTotal.text(`$${getGrandTotal()}`);
 
   $reviewAndSendBtn
     .attr("data-count", getPaneCount())
     .attr("data-total", getGrandTotal());
+}
+
+function sendQuoteToReview() {
+  window.location.href = "review.html";
 }

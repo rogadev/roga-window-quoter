@@ -16,7 +16,7 @@
  * @param {String} cookieValue
  * @param {Number} existenceDuration (in days)
  * @param {Boolean} secure
- * @returns Returns the string that was used to set the cookie, with escaped values.
+ * @returns Returns the string that was used to set the cookie (escaped).
  */
 function setCookie(cookieName, cookieValue, existenceDuration, secure) {
   let expires, cookieString;
