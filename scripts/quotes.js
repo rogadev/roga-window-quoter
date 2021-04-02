@@ -17,7 +17,7 @@ const $btnBoard = $("div#buttonBoard");
 const $lineItems = $("tbody");
 const $tableFoot = $("tfoot"); //todo: remove and replace
 
-const $ctrlBoard = $("div#controlBoard");
+const $ctrlBoard = $("div#summaryBoard");
 
 const deleteIcon = "<i class='far fa-trash'</i>";
 var lastButtonClicked;
@@ -180,6 +180,8 @@ window.addEventListener("load", () => {
   // Set up click event listeners for button board buttons.
   $("button.pane").on("click", squareClick);
 
+  updateCtrlBoard($ctrlBoard);
+
   // Update (or, more accurately, create) the table footer.
   updateTableFoot();
 });
@@ -225,29 +227,38 @@ function squareClick(e) {
   updateTableFoot();
 }
 
+function getPaneCount() {
+  let paneCount = 0;
+  let dataElements = document.querySelectorAll("td.delete");
+  for (let element of dataElements) {
+    paneCount += Number.parseInt(item.dataset.count);
+  }
+  return paneCount;
+}
+
+function getGrandTotal() {
+  let grandTotal = 0;
+  let dataElements = document.querySelectorAll("td.delete");
+  for (let element of dataElements) {
+    grandTotal += Number.parseInt(item.dataset.price);
+  }
+  return grandTotal.toFixed(2);
+}
+
 /**
  * When we add and delete line items from our list, we want to update the total panes counted and total price
  * of the service. These totals are displayed in our table footer. Calling this function rerenders thes
  * updated values.
  */
 function updateTableFoot() {
-  let count = 0;
-  let totalPrice = 0;
-  /* Our data is stored on our delete button in dataset attributes. */
-  let data = document.querySelectorAll("td.delete");
-  /* Looping through all existing line items, we can get the count and price for each to calculate totals. */
-  for (let item of data) {
-    count += Number.parseInt(item.dataset.count);
-    totalPrice += Number.parseFloat(item.dataset.price);
-  }
   /* Apply data to our table footer template */
   $tableFoot.html(`
   <tr>
     <td></td>
     <td></td>
     <td></td>
-    <td>${count}</td>
-    <td>$${totalPrice.toFixed(2)}</td>
+    <td>${getPaneCount()}</td>
+    <td>$${getGrandTotal()}</td>
     <td></td>
   </tr>`);
 }
@@ -269,4 +280,20 @@ function deleteRow(e) {
       $(e.currentTarget).parent().remove();
       updateTableFoot();
     });
+}
+
+function updateCtrlBoard($location) {
+  let paneCount = document.createElement("div");
+  let grandTotal = document.createElement("div");
+  let reviewAndSendButton = document.createElement("button");
+
+  paneCount.innerHTML = getPaneCount();
+  grandTotal.innerHTML = "$" + getGrandTotal();
+  reviewAndSendButton.innerHTML = "Review & Send";
+
+  paneCount.setAttribute("class", "paneCount");
+  grandTotal.setAttribute("class", "grandTotal");
+  reviewAndSendButton.setAttribute("class", "reviewAndSendButton");
+
+  $location.append(paneCount, grandTotal, reviewAndSendButton);
 }
