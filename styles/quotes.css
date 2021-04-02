@@ -59,3 +59,39 @@ nav div {
   padding: 6px 30px;
   cursor: pointer;
 }
+
+#summaryBoard {
+  display: flex;
+  width: 350px;
+  height: 50px;
+  margin: 40px auto;
+  justify-content: space-between;
+  align-items: center;
+  width: 350px;
+}
+
+.paneCount,
+.grandTotal,
+.reviewAndSendButton {
+  font-weight: 600;
+}
+
+.paneCount,
+.grandTotal {
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.reviewAndSendButton {
+  height: 60px;
+  width: 125px;
+  margin-left: 20px;
+}
+
+table {
+  margin-bottom: 50px;
+}
+
+.summaryContainer {
+  padding: 10px;
+}
