@@ -15,9 +15,9 @@
 
 const $btnBoard = $("div#buttonBoard");
 const $lineItems = $("tbody");
-const $tableFoot = $("tfoot"); //todo: remove and replace
-
 const $ctrlBoard = $("div#summaryBoard");
+var $paneCount, $grandTotal, $reviewAndSendBtn;
+const clickSound = document.getElementById("clickSound");
 
 const deleteIcon = "<i class='far fa-trash'</i>";
 var lastButtonClicked;
@@ -180,10 +180,10 @@ window.addEventListener("load", () => {
   // Set up click event listeners for button board buttons.
   $("button.pane").on("click", squareClick);
 
-  updateCtrlBoard($ctrlBoard);
+  createCtrlBoard();
 
   // Update (or, more accurately, create) the table footer.
-  updateTableFoot();
+  // updateTableFoot();
 });
 
 /**
@@ -211,6 +211,13 @@ function createTableHead(ele) {
  * @param {Event} e Our click event.
  */
 function squareClick(e) {
+  if (clickSound.currenTime !== 0) {
+    clickSound.pause();
+    clickSound.currentTime = 0;
+    console.log(clickSound.currentTime);
+  }
+  clickSound.play();
+
   if (e.target === lastButtonClicked) {
     $("tr:eq(1)").remove();
     currentLineItem.count++;
@@ -224,14 +231,14 @@ function squareClick(e) {
   // Set up delete icon click even listener.
   $("td.delete:eq(0)").on("click", (e) => deleteRow(e));
   // Update table footer with our new totals.
-  updateTableFoot();
+  updateCtrlBoard();
 }
 
 function getPaneCount() {
   let paneCount = 0;
   let dataElements = document.querySelectorAll("td.delete");
   for (let element of dataElements) {
-    paneCount += Number.parseInt(item.dataset.count);
+    paneCount += Number.parseInt(element.dataset.count);
   }
   return paneCount;
 }
@@ -240,7 +247,7 @@ function getGrandTotal() {
   let grandTotal = 0;
   let dataElements = document.querySelectorAll("td.delete");
   for (let element of dataElements) {
-    grandTotal += Number.parseInt(item.dataset.price);
+    grandTotal += Number.parseInt(element.dataset.price);
   }
   return grandTotal.toFixed(2);
 }
@@ -278,22 +285,29 @@ function deleteRow(e) {
     .parent()
     .hide(600, () => {
       $(e.currentTarget).parent().remove();
-      updateTableFoot();
+      updateCtrlBoard();
     });
 }
 
-function updateCtrlBoard($location) {
-  let paneCount = document.createElement("div");
-  let grandTotal = document.createElement("div");
-  let reviewAndSendButton = document.createElement("button");
+function createCtrlBoard() {
+  $paneCount = $("<div></div>").addClass("paneCount").append(getPaneCount());
+  $grandTotal = $("<div></div>")
+    .addClass("grandTotal")
+    .append(`$${getGrandTotal()}`);
+  $reviewAndSendBtn = $("<button></button>")
+    .addClass("reviewAndSendButton")
+    .append("Review & Send")
+    .attr("data-count", "0")
+    .attr("data-total", "0");
 
-  paneCount.innerHTML = getPaneCount();
-  grandTotal.innerHTML = "$" + getGrandTotal();
-  reviewAndSendButton.innerHTML = "Review & Send";
+  $ctrlBoard.append($paneCount, $grandTotal, $reviewAndSendBtn);
+}
 
-  paneCount.setAttribute("class", "paneCount");
-  grandTotal.setAttribute("class", "grandTotal");
-  reviewAndSendButton.setAttribute("class", "reviewAndSendButton");
+function updateCtrlBoard() {
+  $paneCount.text(getPaneCount());
+  $grandTotal.text(`$${getGrandTotal()}`);
 
-  $location.append(paneCount, grandTotal, reviewAndSendButton);
+  $reviewAndSendBtn
+    .attr("data-count", getPaneCount())
+    .attr("data-total", getGrandTotal());
 }
