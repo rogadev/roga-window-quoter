@@ -6,6 +6,7 @@
  * @description This file holds all default values for the standard pricing of our quote tool.
  *
  * NIC DGL113 W21 Course Project.
+ * 
  * File last edited: March 25, 2021
  */
 

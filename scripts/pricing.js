@@ -1,9 +1,9 @@
 "use strict";
 
 /**
- * pricing.js
+ * @file pricing.js
  * @author  Ryan Paranich   <rparanich@northislandcollege.ca>
- * Last edit: March 31, 2021
+ * Last edit: 04/07/2021
  *
  * NIC DGL113 W21
  *
@@ -29,6 +29,7 @@ function constructPricing() {
   var inputPrices = $("input.price");
   var startQuote = document.getElementById("save-and-build");
   var savePricing = document.getElementById("save-and-return");
+  var resetPricing = document.getElementById("set-to-defaults");
 
   /* "Tooltips" are helpful descriptions shown when tapping (mobile) or hovering over (desktop) a given nameplate */
   populateTooltips();
@@ -51,6 +52,13 @@ function constructPricing() {
     });
   }
 
+  /* Event listener to reset pricing to default pricing */
+  resetPricing.addEventListener("click", () => {
+    for (let i = 0; i < inputPrices.length; i++){
+      inputPrices[i].value = defaultValues[i].value.toFixed(2);
+    }
+  });
+
   /* Event listener to use this price list to start a new quote. */
   startQuote.addEventListener("click", () => {
     for (let i = 0; i < inputPrices.length; i++) {
@@ -66,6 +74,8 @@ function constructPricing() {
     }
     window.location.href = "index.html";
   });
+
+  
 }
 
 /**

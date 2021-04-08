@@ -3,6 +3,7 @@
 /**
  * @file  count.js
  * @author  Ryan Paranich <rparanich@northislandcollege.ca>
+ * Last Edit: 04/07/2021
  *
  * NIC DGL113 W21
  *
@@ -16,12 +17,12 @@
 const $btnBoard = $("div#buttonBoard");
 const $lineItems = $("tbody");
 const $ctrlBoard = $("div#summaryBoard");
-var $paneCount, $grandTotal, $reviewAndSendBtn;
 const clickSound = document.getElementById("clickSound");
-
 const deleteIcon = "<i class='far fa-trash'</i>";
+var $paneCount, $grandTotal, $reviewAndSendBtn;
 var lastButtonClicked;
 var currentLineItem;
+var priceList = [];
 
 /**
  * @class Board
@@ -216,15 +217,24 @@ function squareClick(e) {
   updateSummaryBoard();
 }
 
+/**
+ * Plays the click sound when tapping/clicking on a pane count button. This sound indicates to the
+ * user that a button has been clicked. Repeatedly/rappidly clicking the button will indicate the
+ * correct number of rapid clicks for accurate feedback.
+ */
 function playClickSound() {
   if (clickSound.currenTime !== 0) {
     clickSound.pause();
     clickSound.currentTime = 0;
-    console.log(clickSound.currentTime);
   }
   clickSound.play();
 }
 
+/**
+ * Runs through the data stored in our price list and calculates the total panes being counted in
+ * this quote.
+ * @returns {Number} Number of individual window panes that have been counted.
+ */
 function getPaneCount() {
   let paneCount = 0;
   let dataElements = document.querySelectorAll("td.delete");
@@ -234,6 +244,11 @@ function getPaneCount() {
   return paneCount;
 }
 
+/**
+ * Runs through the data stored in our price list and calculates the grand total cost of the service
+ * based on the number of each window pane type.
+ * @returns {Number} Formatted number representing the current value of this quote.
+ */
 function getGrandTotal() {
   let grandTotal = 0;
   let dataElements = document.querySelectorAll("td.delete");
@@ -271,7 +286,7 @@ function deleteRow(e) {
   we simply reset the last button clicked and current line item. */
   currentLineItem = "";
   lastButtonClicked = "";
-  /* Play a fade effect on the current line item, then remove it from the list. Update totals.*/
+  /* Play a fade effect on the current line item, then remove it from the list. Update totals. */
   $(e.currentTarget)
     .parent()
     .hide(600, () => {
@@ -280,11 +295,17 @@ function deleteRow(e) {
     });
 }
 
+/**
+ * This function creates the summary board including pane count and grand total elements, submit button,
+ * as well as applying all relivant styling to thes elements.
+ */
 function createSummaryBoard() {
   $paneCount = $("<div></div>").addClass("paneCount").append(getPaneCount());
+
   $grandTotal = $("<div></div>")
     .addClass("grandTotal")
     .append(`$${getGrandTotal()}`);
+
   $reviewAndSendBtn = $("<button></button>")
     .addClass("reviewAndSendButton")
     .append("Review & Send")
@@ -296,6 +317,7 @@ function createSummaryBoard() {
   let $pcContainer = $("<div></div>")
     .addClass("summaryContainer")
     .append($pcHeader, $paneCount);
+
   let $gtContainer = $("<div></div>")
     .addClass("summaryContainer")
     .append($gtHeader, $grandTotal);
@@ -303,15 +325,24 @@ function createSummaryBoard() {
   $ctrlBoard.append($pcContainer, $gtContainer, $reviewAndSendBtn);
 }
 
+/**
+ * Updates the information within the summary board with up-to-date information. This function might
+ * get called when the user adds or deletes a line item from the list and an updated price/count is
+ * required.
+ */
 function updateSummaryBoard() {
   $paneCount.text(getPaneCount());
   $grandTotal.text(`$${getGrandTotal()}`);
-
   $reviewAndSendBtn
     .attr("data-count", getPaneCount())
     .attr("data-total", getGrandTotal());
 }
 
+/**
+ * For future development - currently only sends users to a "future feature" page. Later, this will
+ * take the data that we've created within our line items and generate a properly styled quote to
+ * send to customers.
+ */
 function sendQuoteToReview() {
   window.location.href = "review.html";
 }
