@@ -2,7 +2,7 @@
 
 ## Ryan Paranich
 
-[See it live now}(https://nicdgl113.github.io/course-project-vonroga/)
+[See it live now](https://nicdgl113.github.io/course-project-vonroga/)
 
 > As part of DGL113 W21 I've been assigned a course project. My project is based on a window pane counting & quote tool that I've invisioned building for my window cleaning business for some time, now. This tool was designed to fit the business needs of [MossAway Services Inc.](https://www.mossaway.ca) and [Comox Window Cleaning](https://www.comoxwindowcleaning.com).
 
