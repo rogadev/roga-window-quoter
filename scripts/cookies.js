@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 /**
  * @file        cookies.js
@@ -19,26 +19,26 @@
  * @returns Returns the string that was used to set the cookie (escaped).
  */
 function setCookie(cookieName, cookieValue, existenceDuration, secure) {
-  let expires, cookieString;
+  let expires, cookieString
   if (existenceDuration) {
-    let date = new Date();
+    let date = new Date()
     // Setting the expiry. Duration entered as number of days.
     expires = date.setTime(
       date.getTime() + existenceDuration * 24 * 60 * 60 * 1000
-    );
-  } else expires = "";
+    )
+  } else expires = ''
 
-  cookieName = escape(cookieName.trim());
-  cookieValue = escape(cookieValue.trim());
+  cookieName = escape(cookieName.trim())
+  cookieValue = escape(cookieValue.trim())
 
-  cookieString = `${cookieName}=${cookieValue}`;
+  cookieString = `${cookieName}=${cookieValue}`
 
-  if (expires) cookieString += ";expires=" + expires;
-  if (secure) cookieString += ";secure";
+  if (expires) cookieString += ';expires=' + expires
+  if (secure) cookieString += ';secure'
 
-  document.cookie = cookieString;
+  document.cookie = cookieString
 
-  return cookieString;
+  return cookieString
 }
 
 /**
@@ -49,19 +49,17 @@ function setCookie(cookieName, cookieValue, existenceDuration, secure) {
  * returns null.
  */
 function getCookie(cookieName) {
-  let namePlusEqualSign = `${cookieName}=`;
-  let allCookies = document.cookie.split(";");
+  let namePlusEqualSign = `${cookieName}=`
+  let allCookies = document.cookie.split(';')
   for (let cookie of allCookies) {
-    cookie = cookie.trim();
+    cookie = cookie.trim()
     if (cookie.indexOf(namePlusEqualSign) == 0) {
       // Returns only the value of this cookie as an unescaped string.
-      return unescape(
-        cookie.substring(namePlusEqualSign.length, cookie.length)
-      );
+      return unescape(cookie.substring(namePlusEqualSign.length, cookie.length))
     }
   }
   // If we don't find the cookie, execution reaches this line and returns null.
-  return null;
+  return null
 }
 
 /**
@@ -73,33 +71,33 @@ function getCookie(cookieName) {
  * cookie existed, or if deletion verification failed.
  */
 function deleteCookie(cookieName) {
-  cookieName = cookieName.trim();
+  cookieName = cookieName.trim()
   if (doesCookieExist) {
-    document.cookie = `${escape(cookieName)}=x;max-age=0`;
+    document.cookie = `${escape(cookieName)}=x;max-age=0`
     if (getCookie(cookieName) === null) {
-      console.info(`The cookie "${cookieName}" was successfully deleted.`);
-      return true;
+      console.info(`The cookie "${cookieName}" was successfully deleted.`)
+      return true
     } else {
       console.error(
         `An error occured and cookie "${cookieName}" was not successfully deleted form cookies.`
-      );
-      return false;
+      )
+      return false
     }
   } else {
-    console.warn(`No cookie by the name "${cookieName}" exists.`);
-    return false;
+    console.warn(`No cookie by the name "${cookieName}" exists.`)
+    return false
   }
 }
-
 /**
- * Searches for, and returns verification of, the existence of a given cookie, determined by name search. Uses
- * getCookieValue, which returns null if no cookie exists, or returns the unescaped string value of the
- * cookie if it does, in fact, exist.
- * @param {String} cookieName
- * @returns Returns true if cookie exists. Returns false if no cookie exists.
- */
+    
+    Searches for, and returns verification of, the existence of a given cookie, determined by name search. Uses
+    getCookieValue, which returns null if no cookie exists, or returns the unescaped string value of the
+    cookie if it does, in fact, exist.
+    @param {String} cookieName
+    @returns Returns true if cookie exists. Returns false if no cookie exists.
+    */
 function doesCookieExist(cookieName) {
-  cookieName = cookieName.trim();
-  if (getCookie(escape(cookieName)) !== null) return true;
-  else return false;
+  cookieName = cookieName.trim()
+  if (getCookie(escape(cookieName)) !== null) return true
+  else return false
 }

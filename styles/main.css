@@ -1,31 +1,31 @@
-/* 
-global.css
-Author: Ryan Paranich
-Global CSS styings for the entire app. This stylesheet should supersede all subsequent styling.
-*/
+/* main.css */
+/* Author: Ryan Paranich */
 
-/* resets on body styles */
+/* Resets on body styles */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   text-align: center;
 }
 
+/* Header */
 header {
   background: #333;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   color: white;
+  height: 70px;
+  padding: 0 20px;
 }
 
 .brand-title {
-  font-size: 1.5rem;
-  margin: 0.5rem;
-  padding: 3%;
+  font-size: 2rem;
+  margin: 0;
   cursor: pointer;
+  font-weight: bold;
 }
 
 nav ul {
@@ -38,26 +38,21 @@ nav ul {
 nav ul li {
   list-style: none;
 }
+
 nav ul li a {
   text-decoration: none;
   color: white;
   padding: 1rem;
   display: block;
+  transition: background-color 0.3s ease;
 }
 
 nav ul li a:hover {
   background-color: #555;
 }
-footer {
-  text-align: center;
-}
 
-main {
-  width: 85%;
-  margin: 0 auto;
-}
-
-div.div-btn {
+/* Buttons */
+.btn {
   width: 80%;
   margin: 21px auto;
   background-color: #333;
@@ -65,58 +60,38 @@ div.div-btn {
   padding: 8px;
   border-radius: 5px;
   box-shadow: #333 3px 3px 3px;
-}
-
-div.div-btn a {
+  color: white;
   text-decoration: none;
-  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-div.div-btn a:hover {
-  color: rgba(183, 253, 171, 0.835);
+.btn:hover {
+  background-color: rgba(183, 253, 171, 0.835);
+  color: #333;
 }
 
-button.action-button {
-  margin: 8px auto;
-  width: 80%;
-  background-color: #333;
-  text-align: center;
-  padding: 8px;
-  border-radius: 5px;
-  box-shadow: #333 3px 3px 3px;
-  color: white;
-  font-size: 1.2rem;
-}
-
-div.btn-container {
+.btn-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 20px;
 }
 
-div.row {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-div.row input {
-  font-size: 16px;
-  height: 1.5rem;
-  width: 4rem;
-  margin: auto 8px;
-}
-
+/* Form */
 form {
   text-align: center;
 }
 
 form h4 {
   margin: 20px 0 0 0;
+}
+
+form input {
+  font-size: 16px;
+  height: 1.5rem;
+  width: 4rem;
+  margin: auto 8px;
+  text-align: center;
 }
 
 /* Tooltip container */
@@ -136,16 +111,15 @@ form h4 {
   padding: 5px 0;
   border-radius: 6px;
 
-  /* Position the tooltip text - see examples below! */
   position: absolute;
   z-index: 1;
 }
 
 .tooltip .tooltiptext::after {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: 50%;
-  right: 100%; /* To the left of the tooltip */
+  right: 100%;
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
@@ -157,21 +131,29 @@ form h4 {
   visibility: visible;
 }
 
-input {
-  text-align: center;
-}
-
+/* Table */
 table {
   margin: 0 auto;
+  border-collapse: collapse;
+  width: 80%;
 }
 
-table,
 th,
 td {
   border: #333 1px solid;
-  border-collapse: collapse;
+  padding: 10px;
 }
-th,
-td {
-  padding: 7px 12px;
+
+th {
+  background-color: #333;
+  color: white;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
 }

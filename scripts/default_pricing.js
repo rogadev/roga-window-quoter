@@ -1,4 +1,4 @@
-"use strict";
+'use strict'
 
 /**
  * @file        default_pricing.js
@@ -6,7 +6,7 @@
  * @description This file holds all default values for the standard pricing of our quote tool.
  *
  * NIC DGL113 W21 Course Project.
- * 
+ *
  * File last edited: March 25, 2021
  */
 
@@ -20,85 +20,81 @@
  *      @param  {Number}    value       The float value that represents the price of one individual pane of this type.
  */
 class Price {
-  constructor(code, height, size, description, value) {
-    this.code = code.toLowerCase().trim().substring(0, 2);
-    this.height = height;
-    this.size = size;
-    this.description = description;
-    this.value = Number.parseFloat(value);
-    this.screens = Number.parseFloat(value * 0.75).toFixed(2);
+  constructor(code, level, size, description, value) {
+    this.code = code.toLowerCase().trim().substring(0, 2)
+    this.level = level.toUpperCase()
+    this.size = size
+    this.description = description
+    this.value = Number.parseFloat(value)
+    this.screens = Number.parseFloat(value * 0.75).toFixed(2)
   }
 }
 
-const defaultValues = [
-  // Special Level
-  new Price("sk", "Special", "Skylight", "Glass pane skylight cleaning.", 18.0),
-  new Price("sf", "Special", "French", "Cleaning of french panes.", 1.0),
-  new Price("su", "Special", "Setup", "Standard service setup.", 22.5),
-  // High Level
+const DEFAULT_PRICING = [
+  new Price('sk', 'SPECIAL', 'Skylight', 'Glass pane skylight cleaning.', 18.0),
+  new Price('sf', 'SPECIAL', 'French', 'Cleaning of french panes.', 1.0),
+  new Price('su', 'SPECIAL', 'Setup', 'Standard service setup.', 22.5),
   new Price(
-    "hs",
-    "High",
-    "Small",
-    "Small pane, high level, water fed pole cleaning.",
+    'hs',
+    'HIGH',
+    'Small',
+    'Small pane, high level, water fed pole cleaning.',
     5.0
   ),
   new Price(
-    "hm",
-    "High",
-    "Medium",
-    "Medium pane, high level, water fed pole cleaning.",
+    'hm',
+    'HIGH',
+    'Medium',
+    'Medium pane, high level, water fed pole cleaning.',
     6.0
   ),
   new Price(
-    "hl",
-    "High",
-    "Large",
-    "Large pane, high level, water fed pole cleaning.",
+    'hl',
+    'HIGH',
+    'Large',
+    'Large pane, high level, water fed pole cleaning.',
     7.0
   ),
-  // Medium Level
   new Price(
-    "ms",
-    "Mid",
-    "Small",
-    "Small pane, medium level, water fed pole cleaning.",
+    'ms',
+    'MID',
+    'Small',
+    'Small pane, medium level, water fed pole cleaning.',
     4.0
   ),
   new Price(
-    "mm",
-    "Mid",
-    "Medium",
-    "Medium pane, medium level, water fed pole cleaning.",
+    'mm',
+    'MID',
+    'Medium',
+    'Medium pane, medium level, water fed pole cleaning.',
     5.0
   ),
   new Price(
-    "ml",
-    "Mid",
-    "Large",
-    "Large pane, medium level, water fed pole cleaning.",
+    'ml',
+    'MID',
+    'Large',
+    'Large pane, medium level, water fed pole cleaning.',
     6.0
   ),
-  // Ground Level
   new Price(
-    "gs",
-    "Ground",
-    "Small",
-    "Small pane, ground level, traditional cleaning.",
+    'gs',
+    'GROUND',
+    'Small',
+    'Small pane, ground level, traditional cleaning.',
     3.0
   ),
   new Price(
-    "gm",
-    "Ground",
-    "Medium",
-    "Medium pane, ground level, traditional cleaning.",
+    'gm',
+    'GROUND',
+    'Medium',
+    'Medium pane, ground level, traditional cleaning.',
     4.0
   ),
   new Price(
-    "gl",
-    "Ground",
-    "Large",
-    "Large pane, ground level, traditional cleaning.",
+    'gl',
+    'GROUND',
+    'Large',
+    'Large pane, ground level, traditional cleaning.',
     5.5
   ),
-];
+]
