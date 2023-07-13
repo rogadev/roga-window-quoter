@@ -4,7 +4,7 @@ Quickly, easily, and accurately quote window cleaning jobs. This project was bui
 
 ## Demo link:
 
-Access the web app at [ezeval.app](https://www.ezeval.app/)
+Access it live at [https://ezeval.app](https://www.ezeval.app/)
 
 ## Table of Content:
 
