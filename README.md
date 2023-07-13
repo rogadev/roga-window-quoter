@@ -1,11 +1,46 @@
-# Window Pane Quote Tool
+# EzEval
 
-## Ryan Paranich
+Quickly, easily, and accurately quote window cleaning jobs. This project was built using vanilla JavaScript, HTML, and CSS as part of a school project. A [new version](https://github.com/rogadev/ezeval.app) will replace it soon, built with SvelteKit.
 
-[Click here to see it live now](https://ezeval.app)
+## Demo link:
 
-> As part of DGL113 W21 I've been assigned a course project. My project is based on a window pane counting & quote tool that I've invisioned building for my window cleaning business for some time, now. This tool was designed to fit the business needs of [MossAway Services Inc.](https://www.mossaway.ca) and [Comox Window Cleaning](https://www.comoxwindowcleaning.com).
+Access the web app at [ezeval.app](https://www.ezeval.app/)
 
-This project, the Window Pane Quote Tool (a placeholder title), was designed to allow a window cleaner to arrive at a customer's house and quickly count window panes of varying sizes and complexity. The tool will automatically tally up the count and produce a rough quote to provide to a customer. In doing so, the evaluator can give a customer an on-the-spot quote with a high level of confidence that all factors have been considered.
+## Table of Content:
 
-In future iterations of this project I plan to build in user authentication and database storage. In this MVP, only session storage will be used to save information during the quote process.
+- [About The App](#about-the-app)
+- [Screenshots](#screenshots)
+- [Technologies](#technologies)
+- [Setup](#setup)
+- [Status](#status)
+
+## About The App
+
+EzEval is a web app that I wanted to build for my own exterior cleaning company, MossAway Services Inc.. At the time, there was nothing that did what I wanted it to do, how I wanted it done. So, I built it myself.
+
+In the newer version built with SvelteKit, I've added user authentication and database storage. This allows users to save their quotes and access them later. It also allows users to create different price sheets for different types of job. For example, a user can create a price sheet for residential window cleaning, and another for commercial window cleaning. The user can then select which price sheet to use when creating a quote.
+
+The newer version will also allow users to create employee profiles. These profiles can produce a quote using metrics, but doesn't allow them to see the price sheet. This allows users to send their employees to quote jobs without giving them the tools to go out on their own and start bidding jobs the same way.
+
+## Screenshots
+
+### Capture project metrics
+
+`![Create a quote screenshot](./readme/images/screencapture-ezeval-app.png)`
+
+### Adjust price sheet
+
+`![Adjust price sheet screenshot](./readme/images/screencapture-ezeval-app-2.png)`
+
+## Technologies
+
+I used vanilla `html`, `css`, and `javascript` to build this project. Updates to the main branch are automatically pushed to the live site using `vercel`.
+
+## Setup
+
+- download or clone the repository
+- use live server to view the project in your browser
+
+## Status
+
+This version of [EzEval] is deprecated. `Version 2` will be out soon. It will be built with `SvelteKit` and will include user authentication and database storage. Find it [here](https://github.com/rogadev/ezeval.app) on GitHub.
